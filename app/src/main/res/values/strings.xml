@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">EduCrypt</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="Currencies">
+        <item>BitCoin(BTC)</item>
+        <item>Ethereum(ETH)</item>
+        <item>LiteCoin(LTC)</item>
+        <item>BitcoinCash(BCH)</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
