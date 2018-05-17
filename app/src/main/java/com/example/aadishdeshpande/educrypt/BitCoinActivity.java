@@ -47,6 +47,8 @@ public class BitCoinActivity extends AppCompatActivity {
 
     TextView btcPrice;
     TextView btcr;
+
+
     FirebaseUser user;
     Integer total;
     LineGraphSeries<DataPoint> series;
@@ -62,6 +64,8 @@ public class BitCoinActivity extends AppCompatActivity {
     float val_coin;
     Float balance;
     String uid;
+    float buyValBtc;
+    TextView Inf;
 
     //Toolbar mToolbar;
     private FirebaseAuth firebaseAuth;
@@ -72,12 +76,14 @@ public class BitCoinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bit_coin);
         initWebsocket();
         wallet = findViewById(R.id.btnwall);
+        Inf = findViewById(R.id.tvInf);
 
         firebaseAuth = FirebaseAuth.getInstance();
         Toolbar mToolbar = findViewById(R.id.tbMain1);
         Bundle bundle = getIntent().getExtras();
         buy = findViewById(R.id.buybtn);
         sell = findViewById(R.id.sellbtn);
+
         /*if(bundle != null)
         {
             mToolbar.setTitle(bundle.getString("CurrencyName"));
@@ -92,6 +98,7 @@ public class BitCoinActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 total_value_btc = dataSnapshot.child(uid).child("btc").child("quantity").getValue(String.class);
                 bal = dataSnapshot.child(uid).child("balance").getValue(String.class);
+                buyValBtc = dataSnapshot.child(uid).child("buyValBtc").getValue(Float.class);
                 //Toast.makeText(BitCoinActivity.this,bal,Toast.LENGTH_SHORT).show();
             }
 
@@ -139,6 +146,10 @@ public class BitCoinActivity extends AppCompatActivity {
                                 Float new_balance = new Float(value);
                                 String newBalance = Float.toString(new_balance);
                                 DatabaseReference holding = myRef.child("balance");
+
+                                DatabaseReference buyVal = myRef.child("buyValBtc");
+                                buyVal.setValue(val_coin);
+
                                 holding.setValue(newBalance);
                                 Toast.makeText(BitCoinActivity.this, "Purchased", Toast.LENGTH_SHORT).show();
                             }
@@ -177,6 +188,9 @@ public class BitCoinActivity extends AppCompatActivity {
                 final TextView mQty = mView.findViewById(R.id.etQty);
                 Button mPurchase = mView.findViewById(R.id.purcahse);
 
+                /*final TextView inf;
+                inf = mView.findViewById(R.id.tvInf);
+                inf.setText(inf.getText().toString() + " loss of 10000");*/
 
                 mPurchase.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -194,6 +208,7 @@ public class BitCoinActivity extends AppCompatActivity {
                             DatabaseReference childRef = myRef.child("btc");
                             DatabaseReference childofchild = childRef.child("quantity");
 
+
                             balance = Float.parseFloat(bal);
 
                             value = balance + val_coin * N.intValue();
@@ -203,6 +218,12 @@ public class BitCoinActivity extends AppCompatActivity {
 
                                 total = Integer.valueOf(tot.intValue() - N.intValue());
                                 childofchild.setValue(total.toString());
+
+                                if(N.intValue() == tot){
+                                    buyValBtc = 0.f;
+                                    DatabaseReference buyVal = myRef.child("buyValBtc");
+                                    buyVal.setValue(buyValBtc);
+                                }
 
                                 Float new_balance = new Float(value);
                                 String newBalance = Float.toString(new_balance);
@@ -300,6 +321,7 @@ public class BitCoinActivity extends AppCompatActivity {
                         final String btc = df1.format(classR) + "%";
 
 
+
                         if(price_ago < p) {
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -312,6 +334,13 @@ public class BitCoinActivity extends AppCompatActivity {
                                     btcr = findViewById(R.id.tvBCHRise);
                                     btcr.setTextColor(Color.GREEN);
 
+                                    if(buyValBtc == 0){
+                                        Inf.setText("0.0");
+                                    }else {
+                                        String profit = (p - buyValBtc) + "";
+                                        Inf.setText(profit);
+                                    }
+                                    //Inf.setText(new StringBuilder().append(Inf.getText().toString()).append(p - buyValBtc).toString());
                                 }
                             });
                         }
@@ -327,6 +356,14 @@ public class BitCoinActivity extends AppCompatActivity {
                                     ((TextView)findViewById(R.id.tvBCHRise)).setText(b);
                                     btcr = findViewById(R.id.tvBCHRise);
                                     btcr.setTextColor(Color.RED);
+
+                                    if(buyValBtc == 0){
+                                        Inf.setText("0.0");
+                                    }else {
+                                        String profit = (p - buyValBtc) + "";
+                                        Inf.setText(profit);
+                                    }
+                                    //Inf.setText(new StringBuilder().append(Inf.getText().toString()).append(p - buyValBtc).toString());
                                 }
                             });
                         }

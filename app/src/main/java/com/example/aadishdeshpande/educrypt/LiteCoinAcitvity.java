@@ -54,6 +54,8 @@ public class LiteCoinAcitvity extends AppCompatActivity {
     float val_coin;
     Float balance;
     String uid;
+    float buyValLtc;
+    TextView Inf;
 
     //Toolbar mToolbar;
     private FirebaseAuth firebaseAuth;
@@ -64,6 +66,7 @@ public class LiteCoinAcitvity extends AppCompatActivity {
         setContentView(R.layout.activity_lite_coin);
         initWebsocket();
         wallet = findViewById(R.id.btnwall);
+        Inf = findViewById(R.id.tvInf);
 
         firebaseAuth = FirebaseAuth.getInstance();
         Toolbar mToolbar = findViewById(R.id.tbMain1);
@@ -84,6 +87,7 @@ public class LiteCoinAcitvity extends AppCompatActivity {
                 total_value_ltc = dataSnapshot.child(uid).child("ltc").child("quantity").getValue(String.class);
                 bal = dataSnapshot.child(uid).child("balance").getValue(String.class);
                 //Toast.makeText(BitCoinActivity.this,bal,Toast.LENGTH_SHORT).show();
+                buyValLtc = dataSnapshot.child(uid).child("buyValLtc").getValue(Float.class);
             }
 
             @Override
@@ -131,6 +135,10 @@ public class LiteCoinAcitvity extends AppCompatActivity {
                                 String newBalance = Float.toString(new_balance);
                                 DatabaseReference holding = myRef.child("balance");
                                 holding.setValue(newBalance);
+
+                                DatabaseReference buyVal = myRef.child("buyValLtc");
+                                buyVal.setValue(val_coin);
+
                                 Toast.makeText(LiteCoinAcitvity.this, "Purchased", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -195,6 +203,12 @@ public class LiteCoinAcitvity extends AppCompatActivity {
                                 total = Integer.valueOf(tot.intValue() - N.intValue());
                                 childofchild.setValue(total.toString());
 
+                                if(N.intValue() == tot){
+                                    buyValLtc = 0.f;
+                                    DatabaseReference buyVal = myRef.child("buyValLtc");
+                                    buyVal.setValue(buyValLtc);
+                                }
+
                                 Float new_balance = new Float(value);
                                 String newBalance = Float.toString(new_balance);
                                 DatabaseReference holding = myRef.child("balance");
@@ -230,7 +244,7 @@ public class LiteCoinAcitvity extends AppCompatActivity {
         wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LiteCoinAcitvity.this,WalletActivity.class));
+                startActivity(new Intent(LiteCoinAcitvity.this,AssistLtcActivity.class));
             }
         });
     }
@@ -299,6 +313,12 @@ public class LiteCoinAcitvity extends AppCompatActivity {
                                     btcr = findViewById(R.id.tvBCHRise);
                                     btcr.setTextColor(Color.GREEN);
 
+                                    if(buyValLtc == 0){
+                                        Inf.setText("0.0");
+                                    }else {
+                                        String profit = (p - buyValLtc) + "";
+                                        Inf.setText(profit);
+                                    }
                                 }
                             });
                         }
@@ -314,6 +334,13 @@ public class LiteCoinAcitvity extends AppCompatActivity {
                                     ((TextView)findViewById(R.id.tvBCHRise)).setText(b);
                                     btcr = findViewById(R.id.tvBCHRise);
                                     btcr.setTextColor(Color.RED);
+
+                                    if(buyValLtc == 0){
+                                        Inf.setText("0.0");
+                                    }else {
+                                        String profit = (p - buyValLtc) + "";
+                                        Inf.setText(profit);
+                                    }
                                 }
                             });
                         }

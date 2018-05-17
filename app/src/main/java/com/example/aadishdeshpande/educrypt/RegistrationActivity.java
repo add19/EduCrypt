@@ -62,6 +62,9 @@ public class RegistrationActivity extends AppCompatActivity {
                                 String holding_btc = "0";
                                 DatabaseReference hold = myRef.child("holding_btc");
                                 hold.setValue(holding_btc);
+                                DatabaseReference buyVal = myRef.child("buyValBtc");
+                                Float f = 0.f;
+                                buyVal.setValue(f);
 
                                 firebaseDatabase = FirebaseDatabase.getInstance();
                                 myRef = firebaseDatabase.getReference(firebaseAuth.getUid());
@@ -71,6 +74,9 @@ public class RegistrationActivity extends AppCompatActivity {
                                 String holding_eth = "0";
                                 hold = myRef.child("holding_eth");
                                 hold.setValue(holding_eth);
+                                buyVal = myRef.child("buyValEth");
+                                buyVal.setValue(f);
+
 
                                 firebaseDatabase = FirebaseDatabase.getInstance();
                                 myRef = firebaseDatabase.getReference(firebaseAuth.getUid());
@@ -80,6 +86,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                 String holding_ltc = "0";
                                 hold = myRef.child("holding_ltc");
                                 hold.setValue(holding_ltc);
+                                buyVal = myRef.child("buyValLtc");
+                                buyVal.setValue(f);
 
                                 firebaseDatabase = FirebaseDatabase.getInstance();
                                 myRef = firebaseDatabase.getReference(firebaseAuth.getUid());
@@ -89,6 +97,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                 String holding_bch = "0";
                                 hold = myRef.child("holding_bch");
                                 hold.setValue(holding_bch);
+                                buyVal = myRef.child("buyValBch");
+                                buyVal.setValue(f);
 
                                 startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
                             }

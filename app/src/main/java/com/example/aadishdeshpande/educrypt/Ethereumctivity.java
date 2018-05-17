@@ -55,6 +55,8 @@ public class Ethereumctivity extends AppCompatActivity {
     Float balance;
     DatabaseReference databaseReference;
     //Toolbar mToolbar;
+    float buyValEth;
+    TextView Inf;
     WebSocketClient webSocketClient;
     private Button wallet;
     @Override
@@ -65,6 +67,8 @@ public class Ethereumctivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         wallet = findViewById(R.id.btnwall);
+        Inf = findViewById(R.id.tvInf);
+
 
         initWebsocket();
         Toolbar mToolbar = findViewById(R.id.tbMain1);
@@ -82,6 +86,7 @@ public class Ethereumctivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 total_value_eth = dataSnapshot.child(uid).child("eth").child("quantity").getValue(String.class);
                 bal = dataSnapshot.child(uid).child("balance").getValue(String.class);
+                buyValEth = dataSnapshot.child(uid).child("buyValEth").getValue(Float.class);
             }
 
             @Override
@@ -137,6 +142,10 @@ public class Ethereumctivity extends AppCompatActivity {
                                 String newBalance = Float.toString(new_balance);
                                 DatabaseReference holding = myRef.child("balance");
                                 holding.setValue(newBalance);
+
+                                DatabaseReference buyVal = myRef.child("buyValEth");
+                                buyVal.setValue(val_coin);
+
                                 Toast.makeText(Ethereumctivity.this, "Purchased", Toast.LENGTH_SHORT).show();
                             }
 
@@ -202,6 +211,11 @@ public class Ethereumctivity extends AppCompatActivity {
                                 total = Integer.valueOf(tot.intValue() - N.intValue());
                                 childofchild.setValue(total.toString());
 
+                                if(N.intValue() == tot){
+                                    buyValEth = 0.f;
+                                    DatabaseReference buyVal = myRef.child("buyValEth");
+                                    buyVal.setValue(buyValEth);
+                                }
                                 Float new_balance = new Float(value);
                                 String newBalance = Float.toString(new_balance);
                                 DatabaseReference holding = myRef.child("balance");
@@ -237,7 +251,7 @@ public class Ethereumctivity extends AppCompatActivity {
         wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ethereumctivity.this,WalletActivity.class));
+                startActivity(new Intent(Ethereumctivity.this,AssistEthActivity.class));
             }
         });
 
@@ -308,6 +322,13 @@ public class Ethereumctivity extends AppCompatActivity {
                                     btcr = findViewById(R.id.tvBCHRise);
                                     btcr.setTextColor(Color.GREEN);
 
+                                    if(buyValEth == 0){
+                                        Inf.setText("0.0");
+                                    }else {
+                                        String profit = (p - buyValEth) + "";
+                                        Inf.setText(profit);
+                                    }
+
                                 }
                             });
                         }
@@ -323,6 +344,13 @@ public class Ethereumctivity extends AppCompatActivity {
                                     ((TextView)findViewById(R.id.tvBCHRise)).setText(btc);
                                     btcr = findViewById(R.id.tvBCHRise);
                                     btcr.setTextColor(Color.RED);
+
+                                    if(buyValEth == 0){
+                                        Inf.setText("0.0");
+                                    }else {
+                                        String profit = (p - buyValEth) + "";
+                                        Inf.setText(profit);
+                                    }
                                 }
                             });
                         }

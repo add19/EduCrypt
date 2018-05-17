@@ -33,7 +33,10 @@
         <activity android:name=".DetailsActivity" />
         <activity android:name=".LiteCoinAcitvity" />
         <activity android:name=".BitCash" />
-        <activity android:name=".AssistActivity"></activity>
+        <activity android:name=".AssistActivity" />
+        <activity android:name=".AssistEthActivity" />
+        <activity android:name=".AssistLtcActivity" />
+        <activity android:name=".AssistBchActivity"></activity>
     </application>
 
 </manifest>
