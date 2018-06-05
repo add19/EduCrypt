@@ -66,6 +66,7 @@ public class BitCoinActivity extends AppCompatActivity {
     String uid;
     float buyValBtc;
     TextView Inf;
+    Integer totval;
 
     //Toolbar mToolbar;
     private FirebaseAuth firebaseAuth;
@@ -213,7 +214,7 @@ public class BitCoinActivity extends AppCompatActivity {
 
                             value = balance + val_coin * N.intValue();
                             if (N.intValue() > tot) {
-                                Toast.makeText(BitCoinActivity.this, "Please Enter a valid quantity to sell", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(     BitCoinActivity.this, "Please Enter a valid quantity to sell", Toast.LENGTH_SHORT).show();
                             } else {
 
                                 total = Integer.valueOf(tot.intValue() - N.intValue());
@@ -337,7 +338,8 @@ public class BitCoinActivity extends AppCompatActivity {
                                     if(buyValBtc == 0){
                                         Inf.setText("0.0");
                                     }else {
-                                        String profit = (p - buyValBtc) + "";
+                                        totval = Integer.parseInt(total_value_btc);
+                                        String profit = (p - buyValBtc)*totval + "";
                                         Inf.setText(profit);
                                     }
                                     //Inf.setText(new StringBuilder().append(Inf.getText().toString()).append(p - buyValBtc).toString());
@@ -360,7 +362,8 @@ public class BitCoinActivity extends AppCompatActivity {
                                     if(buyValBtc == 0){
                                         Inf.setText("0.0");
                                     }else {
-                                        String profit = (p - buyValBtc) + "";
+                                        totval = Integer.parseInt(total_value_btc);
+                                        String profit = (p - buyValBtc)*totval + "";
                                         Inf.setText(profit);
                                     }
                                     //Inf.setText(new StringBuilder().append(Inf.getText().toString()).append(p - buyValBtc).toString());

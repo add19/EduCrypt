@@ -64,7 +64,7 @@ public class AssistLtcActivity extends AppCompatActivity {
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(30);
         graph.getViewport().setMinY(0.0);
-        graph.getViewport().setMaxY(1000.0);
+        graph.getViewport().setMaxY(300.0);
 
         graph.getViewport().setScrollable(true);
         graph.getViewport().setScrollableY(true);
@@ -99,7 +99,7 @@ public class AssistLtcActivity extends AppCompatActivity {
         if(diff < 7){
             Toast.makeText(AssistLtcActivity.this, "There is a strong possibility of profit by selling few!", Toast.LENGTH_LONG).show();
         }
-        if(diff > 7){
+        if(diff >= 7){
             Toast.makeText(AssistLtcActivity.this, "The value has fallen too many times in the past 15 days, Not recommended to sell!", Toast.LENGTH_LONG).show();
         }
         graph.getViewport().setYAxisBoundsManual(true);

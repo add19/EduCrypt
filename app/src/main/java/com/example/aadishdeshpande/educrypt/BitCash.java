@@ -54,6 +54,7 @@ public class BitCash extends AppCompatActivity {
     float val_coin;
     Float balance;
     String uid;
+    Integer totval;
     float buyValBch;
     TextView Inf;
 
@@ -318,7 +319,8 @@ public class BitCash extends AppCompatActivity {
                                     if(buyValBch == 0){
                                         Inf.setText("0.0");
                                     }else {
-                                        String profit = (p - buyValBch) + "";
+                                        totval = Integer.parseInt(total_value_bch);
+                                        String profit = (p - buyValBch)*totval + "";
                                         Inf.setText(profit);
                                     }
                                 }
@@ -340,7 +342,8 @@ public class BitCash extends AppCompatActivity {
                                     if(buyValBch == 0){
                                         Inf.setText("0.0");
                                     }else {
-                                        String profit = (p - buyValBch) + "";
+                                        totval = Integer.parseInt(total_value_bch);
+                                        String profit = (p - buyValBch)*totval + "";
                                         Inf.setText(profit);
                                     }
                                 }

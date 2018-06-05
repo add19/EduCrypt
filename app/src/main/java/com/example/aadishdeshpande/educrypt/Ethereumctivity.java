@@ -57,6 +57,7 @@ public class Ethereumctivity extends AppCompatActivity {
     //Toolbar mToolbar;
     float buyValEth;
     TextView Inf;
+    Integer totval;
     WebSocketClient webSocketClient;
     private Button wallet;
     @Override
@@ -325,7 +326,9 @@ public class Ethereumctivity extends AppCompatActivity {
                                     if(buyValEth == 0){
                                         Inf.setText("0.0");
                                     }else {
-                                        String profit = (p - buyValEth) + "";
+
+                                        totval = Integer.parseInt(total_value_eth);
+                                        String profit = (p - buyValEth)*totval + "";
                                         Inf.setText(profit);
                                     }
 
@@ -348,7 +351,9 @@ public class Ethereumctivity extends AppCompatActivity {
                                     if(buyValEth == 0){
                                         Inf.setText("0.0");
                                     }else {
-                                        String profit = (p - buyValEth) + "";
+
+                                        totval = Integer.parseInt(total_value_eth);
+                                        String profit = (p - buyValEth)*totval + "";
                                         Inf.setText(profit);
                                     }
                                 }

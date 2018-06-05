@@ -99,7 +99,7 @@ public class AssistBchActivity extends AppCompatActivity {
         if(diff < 7){
             Toast.makeText(AssistBchActivity.this, "There is a strong possibility of profit by selling few!", Toast.LENGTH_LONG).show();
         }
-        if(diff > 7){
+        if(diff >= 7){
             Toast.makeText(AssistBchActivity.this, "The value has fallen too many times in the past 15 days, Not recommended to sell!", Toast.LENGTH_LONG).show();
         }
         graph.getViewport().setYAxisBoundsManual(true);

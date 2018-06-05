@@ -56,6 +56,7 @@ public class LiteCoinAcitvity extends AppCompatActivity {
     String uid;
     float buyValLtc;
     TextView Inf;
+    Integer totval;
 
     //Toolbar mToolbar;
     private FirebaseAuth firebaseAuth;
@@ -316,7 +317,9 @@ public class LiteCoinAcitvity extends AppCompatActivity {
                                     if(buyValLtc == 0){
                                         Inf.setText("0.0");
                                     }else {
-                                        String profit = (p - buyValLtc) + "";
+
+                                        totval = Integer.parseInt(total_value_ltc);
+                                        String profit = (p - buyValLtc)*totval + "";
                                         Inf.setText(profit);
                                     }
                                 }
@@ -338,7 +341,8 @@ public class LiteCoinAcitvity extends AppCompatActivity {
                                     if(buyValLtc == 0){
                                         Inf.setText("0.0");
                                     }else {
-                                        String profit = (p - buyValLtc) + "";
+                                        totval = Integer.parseInt(total_value_ltc);
+                                        String profit = (p - buyValLtc)*totval + "";
                                         Inf.setText(profit);
                                     }
                                 }
